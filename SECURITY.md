@@ -4,4 +4,5 @@ Currently not tested for Security
 
 | Version | Supported ?        |
 | ------- | ------------------ |
-| 1.0     | :x:                |
+| Java    | :x:                |
+| Python  | :x:                |
