@@ -1,6 +1,8 @@
 # SoulWoods
 Indie Text Scroller
-## Willkommen in den SoulWoods
+##Install
+- soon
+### Willkommen in den SoulWoods
 Bereite dich auf ein episches Abenteuer vor, tapferer Held.  
 Tief im dichteren Wald lauern unzählige Monster, auf der Suche nach Seelen.  
 Deine Mission: Besiege sie alle bis die Welt zerfällt.  
