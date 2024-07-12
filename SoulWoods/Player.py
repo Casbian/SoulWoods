@@ -1,5 +1,4 @@
 import random
-import tkinter as tk
 class Player:
     playerLevel = int (0)
     playerXP = int (0)

@@ -1,5 +1,4 @@
 import random
-import tkinter as tk
 class Monster:
     monsterLevel = int (0)
     monsterHP = int (random.uniform(1,100)+100)

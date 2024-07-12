@@ -1,6 +1,7 @@
 #Game Classes
 from Player import Player
 from Monster import Monster
+from Upgrade import UpgradeClass
 import customtkinter as ctk
 import tkinter as tk
 from tkinter import ttk
@@ -122,10 +123,18 @@ pngMainScreenButtonAttack = tk.PhotoImage(file="SoulWoods/assets/MainScreen/Atta
 pngMainScreenButtonAttackScaled = pngMainScreenButtonAttack.subsample(2,2)
 pngMainScreenButtonGuard = tk.PhotoImage(file="SoulWoods/assets/MainScreen/Guard.png")
 pngMainScreenButtonGuardScaled = pngMainScreenButtonGuard.subsample(2,2)
+pngMainScreenButtonACK = tk.PhotoImage(file="SoulWoods/assets/MainScreen/ACKButton.png")
+pngMainScreenButtonACKScaled = pngMainScreenButtonACK.subsample(2,2)
 pngMonsterIDLE = tk.PhotoImage(file="SoulWoods/assets/MainScreen/MonsterIDLE.png")
 pngMonsterIDLEScaled = pngMonsterIDLE.subsample(2,2)
 pngMonsterHURT = tk.PhotoImage(file="SoulWoods/assets/MainScreen/MonsterHURT.png")
 pngMonsterHURTScaled = pngMonsterHURT.subsample(2,2)
+pngMonsterDEATH1 = tk.PhotoImage(file="SoulWoods/assets/MainScreen/MonsterDEATH1.png")
+pngMonsterDEATHScaled1 = pngMonsterDEATH1.subsample(2,2)
+pngMonsterDEATH2 = tk.PhotoImage(file="SoulWoods/assets/MainScreen/MonsterDEATH2.png")
+pngMonsterDEATHScaled2 = pngMonsterDEATH2.subsample(2,2)
+pngMonsterDEATH3 = tk.PhotoImage(file="SoulWoods/assets/MainScreen/MonsterDEATH3.png")
+pngMonsterDEATHScaled3 = pngMonsterDEATH3.subsample(2,2)
 pngMonsterATTACK1 = tk.PhotoImage(file="SoulWoods/assets/MainScreen/MonsterATTACK1.png")
 pngMonsterATTACKScaled1 = pngMonsterATTACK1.subsample(2,2)
 pngMonsterATTACK2 = tk.PhotoImage(file="SoulWoods/assets/MainScreen/MonsterATTACK2.png")
@@ -142,9 +151,17 @@ pngPlayerATTACK2 = tk.PhotoImage(file="SoulWoods/assets/MainScreen/PlayerATTACK2
 pngPlayerATTACKScaled2 = pngPlayerATTACK2.subsample(2,2)
 pngPlayerATTACK3 = tk.PhotoImage(file="SoulWoods/assets/MainScreen/PlayerATTACK3.png")
 pngPlayerATTACKScaled3 = pngPlayerATTACK3.subsample(2,2)
-pngMainScreenButtonACK = tk.PhotoImage(file="SoulWoods/assets/MainScreen/ACKButton.png")
-pngMainScreenButtonACKScaled = pngMainScreenButtonACK.subsample(2,2)
+
+
+pngUpgradeHP = tk.PhotoImage(file="SoulWoods/assets/MainScreen/UpgradeHP.png")
+pngUpgradeHPScaled = pngUpgradeHP.subsample(2,2)
+pngUpgradeSpeed = tk.PhotoImage(file="SoulWoods/assets/MainScreen/UpgradeSpeed.png")
+pngUpgradeSpeedScaled = pngUpgradeSpeed.subsample(2,2)
+pngUpgradeAttack = tk.PhotoImage(file="SoulWoods/assets/MainScreen/UpgradeAttack.png")
+pngUpgradeAttackScaled = pngUpgradeAttack.subsample(2,2)
+
 def MainScreen():
+    PLAYER = Player
     main = tk.Canvas(game,borderwidth=0,highlightthickness=0)
     main.place(relx=0.5, rely=0.5, anchor=tk.CENTER, relheight=1, relwidth=1)
     main.create_image(512, 256, image=pngMainScreenScaledRoot1,tags="ROOT")
@@ -159,19 +176,18 @@ def MainScreen():
     consoleText = "-- GUARD Button\nNegates all DAMAGE this round\n\n-- ATTACK Button\nStarts Combat\n\n-- UPGRADES\nUse mouse to choose"
     console = tk.Message(main, text=consoleText, width=180,borderwidth=0,highlightthickness=0,background="#ecddc0")
     console.place(relx=0.5, rely=0.35, anchor=tk.CENTER)
-    mainButtonACK = tk.Button(main,borderwidth=0,highlightthickness=0,background="#ecddc0",activebackground="#ecddc0",command=lambda: ACKStartGame(main,console,mainButtonACK,mainButtonAttack,mainButtonGuard))
+    mainButtonACK = tk.Button(main,borderwidth=0,highlightthickness=0,background="#ecddc0",activebackground="#ecddc0",command=lambda: ACKStartGame(main,console,mainButtonACK,mainButtonAttack,mainButtonGuard,PLAYER))
     mainButtonACK.place(relx=0.5, rely=0.55, anchor=tk.CENTER)
-    mainButtonACK.config(image=pngMainScreenButtonACKScaled)      
-def Game(main,mainButtonAttack,mainButtonGuard):
+    mainButtonACK.config(image=pngMainScreenButtonACKScaled)   
+def Game(main,mainButtonAttack,mainButtonGuard,PLAYER):
     ROUNDCOUNTER = 0
-    PLAYER = Player
     MONSTER = Monster
     ROUNDCOUNTER = ROUNDCOUNTER+1
     PLAYER.playerLevel = ROUNDCOUNTER
     MONSTER.monsterLevel = ROUNDCOUNTER
     main.itemconfig("ROOT",image=pngMainScreenScaledRoot2)
-    main.create_image(200, 350, image=pngPlayerIDLEScaled,tags="PLAYER")
-    main.create_image(775, 350, image=pngMonsterIDLEScaled,tags="MONSTER")
+    main.create_image(200, 400, image=pngPlayerIDLEScaled,tags="PLAYER")
+    main.create_image(775, 400, image=pngMonsterIDLEScaled,tags="MONSTER")
     playerHP = tk.Message(main, text=PLAYER.playerHP, width=180,borderwidth=0,highlightthickness=0,background="#ecddc0",foreground="#4ad607")
     playerHP.place(relx=0.28, rely=0.30, anchor=tk.CENTER)
     playerSpeed = tk.Message(main, text=PLAYER.playerSpeed, width=180,borderwidth=0,highlightthickness=0,background="#ecddc0",foreground="#0051ca")
@@ -190,6 +206,8 @@ def Game(main,mainButtonAttack,mainButtonGuard):
     monsterLevel.place(relx=0.80, rely=0.49, anchor=tk.CENTER)
     def Attack():
         DEATHLOOP = False
+        mainButtonAttack.config(state="disabled")
+        mainButtonGuard.config(state="disabled")
         while DEATHLOOP==False:
             if PLAYER.playerSpeed>=MONSTER.monsterSpeed:
                 main.itemconfig("PLAYER",image=pngPlayerATTACKScaled1)
@@ -230,12 +248,15 @@ def Game(main,mainButtonAttack,mainButtonGuard):
                     monsterDamage.destroy()
                     monsterLevel.destroy()
                     main.itemconfig("ROOT",image=pngMainScreenScaledRoot3)
-                    mainButtonAttack.config(state="disabled")
-                    mainButtonGuard.config(state="disabled") 
                 elif MONSTER.monsterHP<=0:
                     DEATHLOOP = True
-                    mainButtonAttack.config(state="disabled")
-                    mainButtonGuard.config(state="disabled")
+                    main.itemconfig("MONSTER",image=pngMonsterDEATHScaled1)
+                    threading.Event().wait(0.1)
+                    main.itemconfig("MONSTER",image=pngMonsterDEATHScaled2)
+                    threading.Event().wait(0.1)
+                    main.itemconfig("MONSTER",image=pngMonsterDEATHScaled3)
+                    gameGameLoopThread = threading.Thread(target=Upgrade(main,mainButtonAttack,mainButtonGuard,PLAYER))
+                    gameGameLoopThread.start()
                 else:
                     pass
             else:
@@ -269,17 +290,17 @@ def Game(main,mainButtonAttack,mainButtonGuard):
                     monsterDamage.destroy()
                     monsterLevel.destroy()
                     main.itemconfig("ROOT",image=pngMainScreenScaledRoot3)
-                    mainButtonAttack.config(state="disabled")
-                    mainButtonGuard.config(state="disabled")  
                 elif MONSTER.monsterHP<=0:
                     DEATHLOOP = True
-                    mainButtonAttack.config(state="disabled")
-                    mainButtonGuard.config(state="disabled")
+                    main.itemconfig("MONSTER",image=pngMonsterDEATHScaled1)
+                    threading.Event().wait(0.1)
+                    main.itemconfig("MONSTER",image=pngMonsterDEATHScaled2)
+                    threading.Event().wait(0.1)
+                    main.itemconfig("MONSTER",image=pngMonsterDEATHScaled3)
+                    gameGameLoopThread = threading.Thread(target=Upgrade(main,mainButtonAttack,mainButtonGuard,PLAYER))
+                    gameGameLoopThread.start()
                 else:
-                    pass
-                
-                
-            
+                    pass       
     def Guard():
         pass
     def AttackThread():
@@ -288,6 +309,74 @@ def Game(main,mainButtonAttack,mainButtonGuard):
     def GuardThread():
         gameGuardThread = threading.Thread(target=Guard)
         gameGuardThread.start()
+    def Upgrade(main,mainButtonAttack,mainButtonGuard,PLAYER):
+        UPGRADE = UpgradeClass
+        main.itemconfig("ROOT",image=pngMainScreenScaledRoot1)
+        mainButtonUpgradeHP = tk.Button(main,borderwidth=0,highlightthickness=0,background="#ecddc0",activebackground="#ecddc0",foreground="#4ad607")
+        mainButtonUpgradeHP.place(relx=0.5, rely=0.28, anchor=tk.CENTER)
+        mainButtonUpgradeSpeed = tk.Button(main,borderwidth=0,highlightthickness=0,background="#ecddc0",activebackground="#ecddc0",foreground="#0051ca")
+        mainButtonUpgradeSpeed.place(relx=0.5, rely=0.38, anchor=tk.CENTER)
+        mainButtonUpgradeAttack =  tk.Button(main,borderwidth=0,highlightthickness=0,background="#ecddc0",activebackground="#ecddc0",foreground="#e70000")
+        mainButtonUpgradeAttack.place(relx=0.5, rely=0.48, anchor=tk.CENTER)
+        mainButtonUpgradeHP.config(image=pngUpgradeHPScaled)
+        mainButtonUpgradeSpeed.config(image=pngUpgradeSpeedScaled)
+        mainButtonUpgradeAttack.config(image=pngUpgradeAttackScaled)
+        upgradeHPText = tk.Message(main, text=UPGRADE.heilung, width=180,borderwidth=0,highlightthickness=0,background="#675454",foreground="#4ad607")
+        upgradeHPText.place(relx=0.55, rely=0.28, anchor=tk.CENTER)
+        upgradeSpeedText = tk.Message(main, text=UPGRADE.speedBuff, width=180,borderwidth=0,highlightthickness=0,background="#675454",foreground="#0051ca")
+        upgradeSpeedText.place(relx=0.55, rely=0.38, anchor=tk.CENTER)
+        upgradeAttackText = tk.Message(main, text=UPGRADE.damageBuff, width=180,borderwidth=0,highlightthickness=0,background="#675454",foreground="#e70000")
+        upgradeAttackText.place(relx=0.55, rely=0.48, anchor=tk.CENTER)
+        mainButtonUpgradeHP.config(command=lambda: UpgradeHPFunctionThread(main,mainButtonAttack,mainButtonGuard,PLAYER,mainButtonUpgradeHP,mainButtonUpgradeSpeed,mainButtonUpgradeAttack,upgradeHPText,upgradeSpeedText,upgradeAttackText,UPGRADE))
+        mainButtonUpgradeSpeed.config(command=lambda: UpgradeSpeedFunctionThread(main,mainButtonAttack,mainButtonGuard,PLAYER,mainButtonUpgradeHP,mainButtonUpgradeSpeed,mainButtonUpgradeAttack,upgradeHPText,upgradeSpeedText,upgradeAttackText,UPGRADE))
+        mainButtonUpgradeAttack.config(command=lambda: UpgradeAttackFunctionThread(main,mainButtonAttack,mainButtonGuard,PLAYER,mainButtonUpgradeHP,mainButtonUpgradeSpeed,mainButtonUpgradeAttack,upgradeHPText,upgradeSpeedText,upgradeAttackText,UPGRADE))
+    def UpgradeHPFunction(main,mainButtonAttack,mainButtonGuard,PLAYER,mainButtonUpgradeHP,mainButtonUpgradeSpeed,mainButtonUpgradeAttack,upgradeHPText,upgradeSpeedText,upgradeAttackText,UPGRADE):
+        mainButtonUpgradeHP.destroy()
+        mainButtonUpgradeSpeed.destroy()
+        mainButtonUpgradeAttack.destroy()
+        upgradeHPText.destroy()
+        upgradeSpeedText.destroy()
+        upgradeAttackText.destroy()
+        main.itemconfig("ROOT",image=pngMainScreenScaledRoot2)
+        PLAYER.playerHP = PLAYER.playerHP+UPGRADE.heilung
+        playerHP.config(text=PLAYER.playerHP)
+        
+        
+    def UpgradeSpeedFunction(main,mainButtonAttack,mainButtonGuard,PLAYER,mainButtonUpgradeHP,mainButtonUpgradeSpeed,mainButtonUpgradeAttack,upgradeHPText,upgradeSpeedText,upgradeAttackText,UPGRADE):
+        mainButtonUpgradeHP.destroy()
+        mainButtonUpgradeSpeed.destroy()
+        mainButtonUpgradeAttack.destroy()
+        upgradeHPText.destroy()
+        upgradeSpeedText.destroy()
+        upgradeAttackText.destroy()
+        main.itemconfig("ROOT",image=pngMainScreenScaledRoot2)
+        PLAYER.playerSpeed = PLAYER.playerSpeed+UPGRADE.speedBuff
+        playerSpeed.config(text=PLAYER.playerSpeed)
+        
+        
+    def UpgradeAttackFunction(main,mainButtonAttack,mainButtonGuard,PLAYER,mainButtonUpgradeHP,mainButtonUpgradeSpeed,mainButtonUpgradeAttack,upgradeHPText,upgradeSpeedText,upgradeAttackText,UPGRADE):
+        mainButtonUpgradeHP.destroy()
+        mainButtonUpgradeSpeed.destroy()
+        mainButtonUpgradeAttack.destroy()
+        upgradeHPText.destroy()
+        upgradeSpeedText.destroy()
+        upgradeAttackText.destroy()
+        main.itemconfig("ROOT",image=pngMainScreenScaledRoot2)
+        PLAYER.playerDamage = PLAYER.playerDamage+UPGRADE.damageBuff
+        playerDamage.config(text=PLAYER.playerDamage)
+        
+        
+    def UpgradeHPFunctionThread(main,mainButtonAttack,mainButtonGuard,PLAYER,mainButtonUpgradeHP,mainButtonUpgradeSpeed,mainButtonUpgradeAttack,upgradeHPText,upgradeSpeedText,upgradeAttackText,UPGRADE):
+        gameGameUpgradeHPThread = threading.Thread(target=UpgradeHPFunction(main,mainButtonAttack,mainButtonGuard,PLAYER,mainButtonUpgradeHP,mainButtonUpgradeSpeed,mainButtonUpgradeAttack,upgradeHPText,upgradeSpeedText,upgradeAttackText,UPGRADE))
+        gameGameUpgradeHPThread.start()
+    def UpgradeSpeedFunctionThread(main,mainButtonAttack,mainButtonGuard,PLAYER,mainButtonUpgradeHP,mainButtonUpgradeSpeed,mainButtonUpgradeAttack,upgradeHPText,upgradeSpeedText,upgradeAttackText,UPGRADE):
+        gameGameUpgradeSpeedThread = threading.Thread(target=UpgradeSpeedFunction(main,mainButtonAttack,mainButtonGuard,PLAYER,mainButtonUpgradeHP,mainButtonUpgradeSpeed,mainButtonUpgradeAttack,upgradeHPText,upgradeSpeedText,upgradeAttackText,UPGRADE))
+        gameGameUpgradeSpeedThread.start()
+    def UpgradeAttackFunctionThread(main,mainButtonAttack,mainButtonGuard,PLAYER,mainButtonUpgradeHP,mainButtonUpgradeSpeed,mainButtonUpgradeAttack,upgradeHPText,upgradeSpeedText,upgradeAttackText,UPGRADE):
+        gameGameUpgradeAttackThread = threading.Thread(target=UpgradeAttackFunction(main,mainButtonAttack,mainButtonGuard,PLAYER,mainButtonUpgradeHP,mainButtonUpgradeSpeed,mainButtonUpgradeAttack,upgradeHPText,upgradeSpeedText,upgradeAttackText,UPGRADE))
+        gameGameUpgradeAttackThread.start()
+        
+    
     mainButtonAttack.config(command=AttackThread)
     mainButtonGuard.config(command=GuardThread)
     mainButtonAttack.config(state="active")
@@ -308,10 +397,10 @@ def Game(main,mainButtonAttack,mainButtonGuard):
     
     
 #Automated Thread Starts from other Functions
-def ACKStartGame(main,console,mainButtonACK,mainButtonAttack,mainButtonGuard):
+def ACKStartGame(main,console,mainButtonACK,mainButtonAttack,mainButtonGuard,PLAYER):
     console.destroy()
     mainButtonACK.destroy() 
-    gameGameThread = threading.Thread(target=Game(main,mainButtonAttack,mainButtonGuard))
+    gameGameThread = threading.Thread(target=Game(main,mainButtonAttack,mainButtonGuard,PLAYER))
     gameGameThread.start()
 def StartStoryThread(main,mainButton):
     main.destroy()
