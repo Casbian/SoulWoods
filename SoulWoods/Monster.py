@@ -1,11 +1,16 @@
 import random
 class Monster:
-    monsterLevel = int (0)
-    monsterHP = int (random.uniform(1,100)+100)
-    monsterSpeed = int (random.uniform(1,20)+1)
-    monsterDamage = int (random.uniform(1,10)+6)
+    def __init__(self, ROUNDCOUNTER):
+        self.instance = ROUNDCOUNTER
+        self.monsterLevel = int (0)
+        self.monsterHP = int (random.uniform(1,1000)+self.instance)
+        self.monsterSpeed = int (random.uniform(1,100)+self.instance)
+        self.monsterDamage = int (random.uniform(1,50)+self.instance)
+        
+        
     
     
+
     
     
     

@@ -1,5 +1,7 @@
 import random
 class UpgradeClass:
-    heilung = int (random.uniform(1,10)+1)
-    damageBuff = int (random.uniform(1,20)+1)
-    speedBuff = int (random.uniform(1,2)+1)
+    def __init__(self, ROUNDCOUNTER):
+        self.instance = ROUNDCOUNTER
+        self.heilung = int (random.uniform(1,100)+ROUNDCOUNTER)
+        self.damageBuff = int (random.uniform(1,20)+ROUNDCOUNTER)
+        self.speedBuff = int (random.uniform(1,20)+ROUNDCOUNTER)
