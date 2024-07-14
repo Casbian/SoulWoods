@@ -1,19 +1,15 @@
-# ![SoulWoods](https://i.ibb.co/F4BzgYp/1.png)
+# ![SoulWoods](https://i.ibb.co/87xCXnW/Soul-Woods-Title-NEW.jpg)
 
 ## Install
-- soon
-- 
-### Willkommen in den SoulWoods
-Bereite dich auf ein episches Abenteuer vor, tapferer Held.  
-Tief im dichteren Wald lauern unzählige Monster, auf der Suche nach Seelen.  
-Deine Mission: Besiege sie alle bis die Welt zerfällt.  
-Mach dich bereit für die Herausforderung deines Lebens!
+- Extract your Release .zip
+- run main.exe
+- enjoy
 
-### Fight Monsters
-![Fight Monsters](https://i.ibb.co/Fs8PwFc/Main-Screen-Root.png)
+### Welcome to the SoulWoods
+Prepare yourself for an epic adventure, brave hero.<br>
+Deep within the dense woods, countless monsters lurk, seeking souls.<br>
+Your mission: Defeat them all before the world crumbles.<br>
+Get ready for the challenge of your life!<br>
 
-### Level Up
-- soon
-- 
-### Find Items
-- soon
+### Screenshots
+![Screen1](https://i.ibb.co/ccS492g/image.png)
