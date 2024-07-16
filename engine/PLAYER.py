@@ -1,7 +1,7 @@
-import customtkinter as ctk
 import tkinter as tk
+import threading
 class PLAYER:
-    def __init__(self,GAMEINSTANCE):
+    def __init__(self):
         self.IDLERIGHT1 = tk.PhotoImage(file="bin/assets/Player/IDLERIGHT/1.png")
         self.IDLERIGHT1SCALED = self.IDLERIGHT1.subsample(2,2)
         self.IDLERIGHT2 = tk.PhotoImage(file="bin/assets/Player/IDLERIGHT/2.png")
@@ -103,3 +103,212 @@ class PLAYER:
         self.JUMPRIGHT7SCALED = self.JUMPRIGHT7.subsample(2, 2)
         self.JUMPRIGHT8 = tk.PhotoImage(file="bin/assets/Player/JUMPRIGHT/8.png")
         self.JUMPRIGHT8SCALED = self.JUMPRIGHT8.subsample(2, 2)
+        
+        
+    def PlayerAnimationJUMPRIGHT(self, WORLD):
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPRIGHT1SCALED)
+        #threading.Event().wait(0.001)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPRIGHT2SCALED)
+        #threading.Event().wait(0.001)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPRIGHT3SCALED)
+        #threading.Event().wait(0.001)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPRIGHT4SCALED)
+        #threading.Event().wait(0.001)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPRIGHT5SCALED)
+        #threading.Event().wait(0.001)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPRIGHT6SCALED)
+        #threading.Event().wait(0.001)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPRIGHT7SCALED)
+        #threading.Event().wait(0.001)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPRIGHT8SCALED)
+        #threading.Event().wait(0.001)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLERIGHT1SCALED)
+        
+        
+    def PlayerAnimationJUMPLEFT(self, WORLD):
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPLEFT1SCALED)
+        #threading.Event().wait(0.05)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPLEFT2SCALED)
+        #threading.Event().wait(0.05)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPLEFT3SCALED)
+        #threading.Event().wait(0.05)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPLEFT4SCALED)
+        #threading.Event().wait(0.05)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPLEFT5SCALED)
+        #threading.Event().wait(0.05)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPLEFT6SCALED)
+        #threading.Event().wait(0.05)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPLEFT7SCALED)
+        #threading.Event().wait(0.05)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.JUMPLEFT8SCALED)
+        #threading.Event().wait(0.05)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLELEFT1SCALED)
+        
+        
+    def PlayerAnimationIDLERIGHT(self, WORLD, MOVEMENT, GAMEINSTANCE):
+        if MOVEMENT.WPressed != True:
+            if MOVEMENT.APressed != True:
+                if MOVEMENT.SPressed != True:
+                    if MOVEMENT.DPressed != True:
+                        if MOVEMENT.SpacePressed != True:
+                            if GAMEINSTANCE.GAMEOFF != True:
+                                WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLERIGHT1SCALED)
+                                threading.Event().wait(0.1)
+                                if MOVEMENT.WPressed != True:
+                                    if MOVEMENT.APressed != True:
+                                        if MOVEMENT.SPressed != True:
+                                            if MOVEMENT.DPressed != True:
+                                                if MOVEMENT.SpacePressed != True:
+                                                    if GAMEINSTANCE.GAMEOFF != True:
+                                                        WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLERIGHT2SCALED)
+                                                        threading.Event().wait(0.1)
+                                                        if MOVEMENT.WPressed != True:
+                                                            if MOVEMENT.APressed != True:
+                                                                if MOVEMENT.SPressed != True:
+                                                                    if MOVEMENT.DPressed != True:
+                                                                        if MOVEMENT.SpacePressed != True:
+                                                                            if GAMEINSTANCE.GAMEOFF != True:
+                                                                                WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLERIGHT3SCALED)                         
+                                                                                threading.Event().wait(0.1)
+                                                                                if MOVEMENT.WPressed != True:
+                                                                                    if MOVEMENT.APressed != True:
+                                                                                        if MOVEMENT.SPressed != True:
+                                                                                            if MOVEMENT.DPressed != True:
+                                                                                                if MOVEMENT.SpacePressed != True:
+                                                                                                    if GAMEINSTANCE.GAMEOFF != True:
+                                                                                                        WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLERIGHT4SCALED)                                       
+                                                                                                        threading.Event().wait(0.1)
+                                                                                                        if MOVEMENT.WPressed != True:
+                                                                                                            if MOVEMENT.APressed != True:
+                                                                                                                if MOVEMENT.SPressed != True:
+                                                                                                                    if MOVEMENT.DPressed != True:
+                                                                                                                        if MOVEMENT.SpacePressed != True:
+                                                                                                                            if GAMEINSTANCE.GAMEOFF != True:
+                                                                                                                                WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLERIGHT5SCALED)                                                   
+                                                                                                                                threading.Event().wait(0.1)
+                                                                                                                                if MOVEMENT.WPressed != True:
+                                                                                                                                    if MOVEMENT.APressed != True:
+                                                                                                                                        if MOVEMENT.SPressed != True:
+                                                                                                                                            if MOVEMENT.DPressed != True:
+                                                                                                                                                if MOVEMENT.SpacePressed != True:
+                                                                                                                                                    if GAMEINSTANCE.GAMEOFF != True:
+                                                                                                                                                        WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLERIGHT6SCALED)                                                              
+                                                                                                                                                        threading.Event().wait(0.1)
+                                                                                                                                                        if MOVEMENT.WPressed != True:
+                                                                                                                                                            if MOVEMENT.APressed != True:
+                                                                                                                                                                if MOVEMENT.SPressed != True:
+                                                                                                                                                                    if MOVEMENT.DPressed != True:
+                                                                                                                                                                        if MOVEMENT.SpacePressed != True:
+                                                                                                                                                                            if GAMEINSTANCE.GAMEOFF != True:
+                                                                                                                                                                                WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLERIGHT7SCALED)                                                                        
+                                                                                                                                                                                threading.Event().wait(0.1)
+                                                                                                                                                                                if MOVEMENT.WPressed != True:
+                                                                                                                                                                                    if MOVEMENT.APressed != True:
+                                                                                                                                                                                        if MOVEMENT.SPressed != True:
+                                                                                                                                                                                            if MOVEMENT.DPressed != True:
+                                                                                                                                                                                                if MOVEMENT.SpacePressed != False:
+                                                                                                                                                                                                    if GAMEINSTANCE.GAMEOFF != True:
+                                                                                                                                                                                                        WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLERIGHT8SCALED)
+                                                                                                
+        
+    
+    def PlayerAnimationIDLELEFT(self, WORLD, MOVEMENT, GAMEINSTANCE):
+        if MOVEMENT.WPressed != True:
+            if MOVEMENT.APressed != True:
+                if MOVEMENT.SPressed != True:
+                    if MOVEMENT.DPressed != True:
+                        if MOVEMENT.SpacePressed != True:
+                            if GAMEINSTANCE.GAMEOFF != True: 
+                                WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLELEFT1SCALED)
+                                threading.Event().wait(0.1)  
+                                if MOVEMENT.WPressed != True:
+                                    if MOVEMENT.APressed != True:
+                                        if MOVEMENT.SPressed != True:
+                                            if MOVEMENT.DPressed != True:
+                                                if MOVEMENT.SpacePressed != True:  
+                                                    if GAMEINSTANCE.GAMEOFF != True:      
+                                                        WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLELEFT2SCALED)              
+                                                        threading.Event().wait(0.1)
+                                                        if MOVEMENT.WPressed != True:
+                                                            if MOVEMENT.APressed != True:
+                                                                if MOVEMENT.SPressed != True:
+                                                                    if MOVEMENT.DPressed != True:
+                                                                        if MOVEMENT.SpacePressed != True: 
+                                                                            if GAMEINSTANCE.GAMEOFF != True: 
+                                                                                WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLELEFT3SCALED)                     
+                                                                                threading.Event().wait(0.1)
+                                                                                if MOVEMENT.WPressed != True:
+                                                                                    if MOVEMENT.APressed != True:
+                                                                                        if MOVEMENT.SPressed != True:
+                                                                                            if MOVEMENT.DPressed != True:
+                                                                                                if MOVEMENT.SpacePressed != True:  
+                                                                                                    if GAMEINSTANCE.GAMEOFF != True:
+                                                                                                        WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLELEFT4SCALED)                                     
+                                                                                                        threading.Event().wait(0.1)
+                                                                                                        if MOVEMENT.WPressed != True:
+                                                                                                            if MOVEMENT.APressed != True:
+                                                                                                                if MOVEMENT.SPressed != True:
+                                                                                                                    if MOVEMENT.DPressed != True:
+                                                                                                                        if MOVEMENT.SpacePressed != True:  
+                                                                                                                            if GAMEINSTANCE.GAMEOFF != True:
+                                                                                                                                WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLELEFT5SCALED)                                                 
+                                                                                                                                threading.Event().wait(0.1)
+                                                                                                                                if MOVEMENT.WPressed != True:
+                                                                                                                                    if MOVEMENT.APressed != True:
+                                                                                                                                        if MOVEMENT.SPressed != True:
+                                                                                                                                            if MOVEMENT.DPressed != True:
+                                                                                                                                                if MOVEMENT.SpacePressed != True: 
+                                                                                                                                                    if GAMEINSTANCE.GAMEOFF != True: 
+                                                                                                                                                        WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLELEFT6SCALED)                                                                                                                                 
+                                                                                                                                                        threading.Event().wait(0.1)
+                                                                                                                                                        if MOVEMENT.WPressed != True:
+                                                                                                                                                            if MOVEMENT.APressed != True:
+                                                                                                                                                                if MOVEMENT.SPressed != True:
+                                                                                                                                                                    if MOVEMENT.DPressed != True:
+                                                                                                                                                                        if MOVEMENT.SpacePressed != True:  
+                                                                                                                                                                            if GAMEINSTANCE.GAMEOFF != True:
+                                                                                                                                                                                WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLELEFT7SCALED)                                                                         
+                                                                                                                                                                                threading.Event().wait(0.1)
+                                                                                                                                                                                if MOVEMENT.WPressed != True:
+                                                                                                                                                                                    if MOVEMENT.APressed != True:
+                                                                                                                                                                                        if MOVEMENT.SPressed != True:
+                                                                                                                                                                                            if MOVEMENT.DPressed != True:
+                                                                                                                                                                                                if MOVEMENT.SpacePressed != True:  
+                                                                                                                                                                                                    if GAMEINSTANCE.GAMEOFF != True:
+                                                                                                                                                                                                     WORLD.CANVAS.itemconfig("PLAYER",image=self.IDLELEFT8SCALED)                                                                                  
+                                                
+                                                                                                          
+      
+    def PlayerAnimationRUNRIGHT(self, WORLD):
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.RUNRIGHT1SCALED)           
+        #threading.Event().wait(0.0005)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.RUNRIGHT2SCALED)                       
+        #threading.Event().wait(0.05)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.RUNRIGHT3SCALED)                                      
+        #threading.Event().wait(0.05)        
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.RUNRIGHT4SCALED)                                                    
+        #threading.Event().wait(0.05)            
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.RUNRIGHT6SCALED)                                                           
+        #threading.Event().wait(0.05)           
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.RUNRIGHT7SCALED)                                                                       
+        #threading.Event().wait(0.05)
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.RUNRIGHT8SCALED)
+                                                                                                          
+    def PlayerAnimationRUNLEFT(self, WORLD):         
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.RUNLEFT1SCALED)    
+        #threading.Event().wait(0.05)               
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.RUNLEFT2SCALED)                          
+        #threading.Event().wait(0.05)                   
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.RUNLEFT3SCALED)                                      
+        #threading.Event().wait(0.05)                       
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.RUNLEFT4SCALED)                                                  
+        #threading.Event().wait(0.05)                       
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.RUNLEFT5SCALED)                                                                
+        #threading.Event().wait(0.05)                  
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.RUNLEFT6SCALED)                                                                          
+        #threading.Event().wait(0.05)            
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.RUNLEFT7SCALED)                                                                                     
+        #threading.Event().wait(0.05)                           
+        WORLD.CANVAS.itemconfig("PLAYER",image=self.RUNLEFT8SCALED)
+        
+                                                                                                                   

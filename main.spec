@@ -6,12 +6,13 @@ a = Analysis(
     pathex=[],
     binaries=[],
     datas=[
-        ('GAME.py', '.'),
-        ('PLAYER.py', '.'),
-        ('WORLD.py', '.'),
-        ('LICENSE', '.'),
-        ('__init__.py', '.'),
-        ('SOULWOODS.py', '.'),
+	('engine/MOVEMENT.py', 'engine/'),
+        ('engine/GAME.py', 'engine/'),
+        ('engine/PLAYER.py', 'engine/'),
+        ('engine/WORLD.py', 'engine/'),
+        ('engine/LICENSE', 'engine/'),
+        ('engine/__init__.py', 'engine/'),
+        ('engine/SOULWOODS.py', 'engine/'),
         ('engine/__pycache__', 'engine/__pycache__'),
         ('assets/GameEssential/icon.ico', 'assets/GameEssential'),
         ('assets/Player/IDLERIGHT', 'assets/Player/IDLERIGHT'),
@@ -62,10 +63,11 @@ exe = EXE(
     icon='assets/GameEssential/icon.ico',
 )
 
-coll = COLLECT(exe,
+coll = COLLECT(
+	       exe,
                a.binaries,
                a.zipfiles,
                a.datas,
                strip=False,
                upx=True,
-               name='SoulWoods')  # Replace with your actual project name
+               name='SoulWoods') 
