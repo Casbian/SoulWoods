@@ -1,73 +1,49 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+block_cipher = None
 
 a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[
-	('engine/MOVEMENT.py', 'engine/'),
-        ('engine/GAME.py', 'engine/'),
-        ('engine/PLAYER.py', 'engine/'),
-        ('engine/WORLD.py', 'engine/'),
-        ('engine/LICENSE', 'engine/'),
-        ('engine/__init__.py', 'engine/'),
-        ('engine/SOULWOODS.py', 'engine/'),
-        ('engine/__pycache__', 'engine/__pycache__'),
-        ('assets/GameEssential/icon.ico', 'assets/GameEssential'),
-        ('assets/Player/IDLERIGHT', 'assets/Player/IDLERIGHT'),
-        ('assets/Player/IDLELEFT', 'assets/Player/IDLELEFT'),
-        ('assets/Player/RUNLEFT', 'assets/Player/RUNLEFT'),
-        ('assets/Player/RUNRIGHT', 'assets/Player/RUNRIGHT'),
-        ('assets/Player/JUMPLEFT', 'assets/Player/JUMPLEFT'),
-        ('assets/Player/JUMPRIGHT', 'assets/Player/JUMPRIGHT'),
-        ('assets/Environment/Empty', 'assets/Environment/Empty'),
-        ('assets/Environment/Dirt', 'assets/Environment/Dirt'),
-        ('assets/Environment/Grass', 'assets/Environment/Grass'),
-        ('assets/Environment/Grass/Stone', 'assets/Environment/Grass/Stone'),
-        ('assets/Environment/Grass/Logs', 'assets/Environment/Grass/Logs'),
-        ('assets/Environment/Ice', 'assets/Environment/Ice'),
-        ('assets/Environment/Stone', 'assets/Environment/Stone'),
-        ('assets/Environment/StoneDry', 'assets/Environment/StoneDry'),
-        ('assets/Environment/StoneWet', 'assets/Environment/StoneWet'),
-    ],
+    datas=[('assets/', 'assets/'),('engine/', 'engine/'),('main.py', '.'),('main.spec', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
     excludes=[],
-    noarchive=False,
+    noarchive=False
 )
-pyz = PYZ(a.pure)
+
+pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
 exe = EXE(
     pyz,
     a.scripts,
-    a.binaries,
-    a.datas,
     [],
+    exclude_binaries=True,
     name='SoulWoods',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    upx_exclude=[],
     runtime_tmpdir=None,
     console=False,
     disable_windowed_traceback=False,
-    argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
-    entitlements_file=None,
-    windowed=True,
-    icon='assets/GameEssential/icon.ico',
+    entitlements_file=None
 )
 
 coll = COLLECT(
-	       exe,
-               a.binaries,
-               a.zipfiles,
-               a.datas,
-               strip=False,
-               upx=True,
-               name='SoulWoods') 
+    exe,
+    a.binaries,
+    a.zipfiles,
+    a.datas,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    name='SoulWoods'
+)
+
+app = BUNDLE(coll, name='main.app', icon='bin/assets/GameEssential/SoulWoods.ico', bundle_identifier=None)

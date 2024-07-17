@@ -1,64 +1,94 @@
-###########################################################################################
-#MIT License                                                                              
-#Copyright (c) 2024 Casbian
-
-#Permission is hereby granted, free of charge, to any person obtaining a copy
-#of this software and associated documentation files (the "Software"), to deal
-#in the Software without restriction, including without limitation the rights
-#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-#copies of the Software, and to permit persons to whom the Software is
-#furnished to do so, subject to the following conditions:
-
-#The above copyright notice and this permission notice shall be included in all
-#copies or substantial portions of the Software.
-
-#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-#SOFTWARE.
-###########################################################################################
-
-# IMPORTED CLASSES // FUNCTIONS // VARIABLES // CONSTANTS
-import engine           #Engine for the Game
-import tkinter as tk    #"Tkinter" GUI Class native to Python for some positional Args
-import threading
-
-###########################################################################################
-
-def Main():
-    
-    GAMEINSTANCE = engine.GAME()
-    WORLD = engine.WORLD(GAMEINSTANCE)
-    SOULWOODS = engine.SOULWOODS()
-    WORLD.CANVAS.create_image(640,512,image=SOULWOODS.TITLEARTSCALED,anchor=tk.CENTER,tags="WORLD")
-    WORLD.CANVAS.itemconfig("WORLD",image=WORLD.ENVIRONMENTEMPTYSCALED)
-    WORLD.RandomWorldGrass(GAMEINSTANCE)
-    
-    PLAYER = engine.PLAYER()
-    MOVEMENT = engine.MOVEMENT()
-    GAMEINSTANCE.GAME.protocol("WM_DELETE_WINDOW",lambda: GAMEINSTANCE.EXIT(MOVEMENT))
-    
-    WORLD.CANVAS.create_image(540,512,image=PLAYER.IDLERIGHT1SCALED,anchor=tk.CENTER,tags="PLAYER")
-    MOVEMENT.UpdatePlayerThread(WORLD, PLAYER, GAMEINSTANCE)
-    
-    
-    
-    
-    
-    GAMEINSTANCE.GAME.bind('<w>', MOVEMENT.KeyPress)
-    GAMEINSTANCE.GAME.bind('<a>', MOVEMENT.KeyPress)
-    GAMEINSTANCE.GAME.bind('<s>', MOVEMENT.KeyPress)
-    GAMEINSTANCE.GAME.bind('<d>', MOVEMENT.KeyPress)
-    GAMEINSTANCE.GAME.bind('<W>', MOVEMENT.KeyPress)
-    GAMEINSTANCE.GAME.bind('<A>', MOVEMENT.KeyPress)
-    GAMEINSTANCE.GAME.bind('<S>', MOVEMENT.KeyPress)
-    GAMEINSTANCE.GAME.bind('<D>', MOVEMENT.KeyPress)
-    GAMEINSTANCE.GAME.bind('<space>', MOVEMENT.KeyPress)
-    GAMEINSTANCE.GAME.bind_all('<KeyRelease>', MOVEMENT.KeyRelease)
-        
-    GAMEINSTANCE.StartGame()
-
-Main()
+import pygame
+import engine
+TITLE = engine.TITLE()
+TITLE.TKINTERSTARTWINDOWLOGIC()
+GAME = engine.GAME()
+WORLD = engine.WORLD()
+PLAYER = engine.PLAYER()
+PLAYERPOSITION = pygame.Vector2(GAME.SCREEN.get_width() / 2, GAME.SCREEN.get_height() / 2)
+PLAYERPNGCENTER = PLAYER.IDLERIGHT1SCALED.get_rect()
+FRAME = 1
+DIRECTION = 0
+ROLLING = False
+LASTROLLTIME = 0
+ATTACKING = False
+RUNNING = False
+GAME.Start()
+RANDOMWORLD = WORLD.RandomWorldGrass(GAME, PLAYERPOSITION)
+while GAME.RUNNING:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT: 
+            GAME.RUNNING = False
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_a or event.key == pygame.K_d or event.key == pygame.K_w or event.key == pygame.K_s:
+                RUNNING = False
+            if event.key == pygame.K_SPACE:
+                ROLLING = False   
+    GAME.TICK = GAME.CLOCK.tick(60) / 1000
+    CURRENTTIME = pygame.time.get_ticks() / 1000
+    GAME.SCREEN.blit(RANDOMWORLD, (0,0))
+    MOUSE = pygame.mouse.get_pressed()
+    if MOUSE[0] == True:
+        ATTACKING = True
+    if MOUSE[0] == False:
+        ATTACKING = False
+    KEYBOARD = pygame.key.get_pressed()
+    if KEYBOARD[pygame.K_w]:
+        RUNNING = True
+        PLAYERPOSITION.y -= 300 * GAME.TICK
+    if KEYBOARD[pygame.K_s]:
+        RUNNING = True
+        PLAYERPOSITION.y += 300 * GAME.TICK
+    if KEYBOARD[pygame.K_a]:
+        DIRECTION = 0
+        RUNNING = True
+        PLAYERPOSITION.x -= 300 * GAME.TICK
+    if KEYBOARD[pygame.K_d]:
+        DIRECTION = 1
+        RUNNING = True
+        PLAYERPOSITION.x += 300 * GAME.TICK
+    if KEYBOARD[pygame.K_SPACE] and ROLLING != True and (CURRENTTIME - LASTROLLTIME) > 5:
+        LASTROLLTIME = CURRENTTIME
+        ROLLING = True
+    if (CURRENTTIME - LASTROLLTIME) > 3:
+        ROLLING = False
+    PLAYERPNGCENTER.center = PLAYERPOSITION
+    match DIRECTION:
+        case 0:
+            FRAME = FRAME+1
+            if FRAME > 60:
+                FRAME = 1 
+            if ROLLING != True: 
+                if ATTACKING != True:
+                    if RUNNING != True:
+                        FRAMEPNG = getattr(PLAYER, "IDLELEFT{}SCALED".format(FRAME))
+                        GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)
+                    else:
+                        FRAMEPNG = getattr(PLAYER, "RUNLEFT{}SCALED".format(FRAME))
+                        GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)
+                else:
+                    FRAMEPNG = getattr(PLAYER, "ATTACKLEFT{}SCALED".format(FRAME))
+                    GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)
+            else:
+                FRAMEPNG = getattr(PLAYER, "ROLLLEFT{}SCALED".format(FRAME))
+                GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)  
+        case 1:
+            FRAME = FRAME+1
+            if FRAME > 60:
+                FRAME = 1
+            if ROLLING != True:
+                if ATTACKING != True:
+                    if RUNNING != True:
+                        FRAMEPNG = getattr(PLAYER, "IDLERIGHT{}SCALED".format(FRAME))
+                        GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)
+                    else:
+                        FRAMEPNG = getattr(PLAYER, "RUNRIGHT{}SCALED".format(FRAME))
+                        GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)
+                else:
+                    FRAMEPNG = getattr(PLAYER, "ATTACKRIGHT{}SCALED".format(FRAME))
+                    GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)
+            else:
+                FRAMEPNG = getattr(PLAYER, "ROLLRIGHT{}SCALED".format(FRAME))
+                GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)  
+    pygame.display.flip()  
+GAME.Exit()
