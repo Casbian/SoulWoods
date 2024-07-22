@@ -46,4 +46,4 @@ coll = COLLECT(
     name='SoulWoods'
 )
 
-app = BUNDLE(coll, name='main.app', icon='bin/assets/GameEssential/SoulWoods.ico', bundle_identifier=None)
+app = BUNDLE(coll, name='SoulWoods', icon='bin/assets/GameEssential/SoulWoods.ico', bundle_identifier=None)
