@@ -1,19 +1,21 @@
-import tkinter as tk
+import pygame
 class TITLE:
-    def __init__(self):
-        self.TKINTERSTARTWINDOW = tk.Tk()
-        self.TKINTERSTARTWINDOW.overrideredirect(True)
-        x = int (self.TKINTERSTARTWINDOW.winfo_screenwidth() / 4)
-        y = int (self.TKINTERSTARTWINDOW.winfo_screenheight() / 8)
-        self.TKINTERSTARTWINDOW.geometry("1280x1024+{}+{}".format(x,y))
-    def PASSBUFFER(self):
-        pass
-    def TKINTERSTARTWINDOWLOGIC(self):
-        self.TKINTERSTARTWINDOW.protocol("WM_DELETE_WINDOW", self.PASSBUFFER)
-        self.CANVAS = tk.Canvas(self.TKINTERSTARTWINDOW,borderwidth=0,highlightthickness=0,background="#000000")
-        self.CANVAS.place(relheight=1,relwidth=1,relx=0.5,rely=0.5,anchor=tk.CENTER)
-        self.TITLEPNG = tk.PhotoImage(file="bin/assets/GameEssential/TITLE/SoulWoodsTitle.png")
-        self.TITLEPNGSCALED = self.TITLEPNG.subsample(2,2)
-        self.CANVAS.create_image(640,512,image=self.TITLEPNGSCALED, anchor=tk.CENTER)
-        self.TKINTERSTARTWINDOW.after(5000, self.TKINTERSTARTWINDOW.destroy)
-        self.TKINTERSTARTWINDOW.mainloop()       
+    def __init__(self, GAMEINSTANCE):
+        self.TITLERUNNING = True
+        GAMEINSTANCE.SCREEN = pygame.display.set_mode((1280, 1024), pygame.NOFRAME)
+        self.TITLEPNG = pygame.image.load('bin/assets/GameEssential/TITLE/SoulWoodsTitle.png')
+        self.TITLEPNGSCALED = pygame.transform.scale(self.TITLEPNG, (self.TITLEPNG.get_width() // 2, self.TITLEPNG.get_height() // 2))
+        self.TIMER = 0
+        while self.TITLERUNNING:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT: 
+                    self.TITLERUNNING = False
+            GAMEINSTANCE.TICK = GAMEINSTANCE.CLOCK.tick(60) / 1000
+            self.SCREENMID = pygame.Vector2(GAMEINSTANCE.SCREEN.get_width() / 2, GAMEINSTANCE.SCREEN.get_height() / 2)
+            self.PNGPOSITION = self.TITLEPNGSCALED.get_rect()
+            self.PNGPOSITION.center = self.SCREENMID
+            GAMEINSTANCE.SCREEN.blit(self.TITLEPNGSCALED, self.PNGPOSITION)
+            self.TIMER = self.TIMER + 1
+            if self.TIMER == 75:
+                self.TITLERUNNING = False
+            pygame.display.flip()

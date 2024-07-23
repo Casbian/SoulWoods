@@ -4,6 +4,7 @@ class WORLD():
     def __init__(self):
         self.ENVIRONMENTEMPTY = pygame.image.load('bin/assets/Environment/Empty/0.png')
         self.ENVIRONMENTEMPTYSCALED = pygame.transform.scale(self.ENVIRONMENTEMPTY, (self.ENVIRONMENTEMPTY.get_width() // 2, self.ENVIRONMENTEMPTY.get_height() // 2))
+        
         self.ENVIRONMENTDIRT1 = pygame.image.load("bin/assets/Environment/Dirt/1.png")
         self.ENVIRONMENTDIRT1SCALED = pygame.transform.scale(self.ENVIRONMENTDIRT1, (self.ENVIRONMENTDIRT1.get_width() // 2, self.ENVIRONMENTDIRT1.get_height() // 2))
         self.ENVIRONMENTDIRT2 = pygame.image.load("bin/assets/Environment/Dirt/2.png")
@@ -52,6 +53,7 @@ class WORLD():
         self.ENVIRONMENTDIRT23SCALED = pygame.transform.scale(self.ENVIRONMENTDIRT23, (self.ENVIRONMENTDIRT23.get_width() // 2, self.ENVIRONMENTDIRT23.get_height() // 2))
         self.ENVIRONMENTDIRT24 = pygame.image.load("bin/assets/Environment/Dirt/24.png")
         self.ENVIRONMENTDIRT24SCALED = pygame.transform.scale(self.ENVIRONMENTDIRT24, (self.ENVIRONMENTDIRT24.get_width() // 2, self.ENVIRONMENTDIRT24.get_height() // 2))
+
         self.ENVIRONMENTGRASS1 = pygame.image.load("bin/assets/Environment/Grass/1.png")
         self.ENVIRONMENTGRASS1SCALED = pygame.transform.scale(self.ENVIRONMENTGRASS1, (self.ENVIRONMENTGRASS1.get_width() // 2, self.ENVIRONMENTGRASS1.get_height() // 2))
         self.ENVIRONMENTGRASS2 = pygame.image.load("bin/assets/Environment/Grass/2.png")
@@ -84,6 +86,7 @@ class WORLD():
         self.ENVIRONMENTGRASS15SCALED = pygame.transform.scale(self.ENVIRONMENTGRASS15, (self.ENVIRONMENTGRASS15.get_width() // 2, self.ENVIRONMENTGRASS15.get_height() // 2))
         self.ENVIRONMENTGRASS16 = pygame.image.load("bin/assets/Environment/Grass/16.png")
         self.ENVIRONMENTGRASS16SCALED = pygame.transform.scale(self.ENVIRONMENTGRASS16, (self.ENVIRONMENTGRASS16.get_width() // 2, self.ENVIRONMENTGRASS16.get_height() // 2))
+
         self.ENVIRONMENTGRASSSTONE1 = pygame.image.load("bin/assets/Environment/Grass/Stone/1.png")
         self.ENVIRONMENTGRASSSTONE1SCALED = pygame.transform.scale(self.ENVIRONMENTGRASSSTONE1, (self.ENVIRONMENTGRASSSTONE1.get_width() // 2, self.ENVIRONMENTGRASSSTONE1.get_height() // 2))
         self.ENVIRONMENTGRASSSTONE2 = pygame.image.load("bin/assets/Environment/Grass/Stone/2.png")
@@ -100,6 +103,7 @@ class WORLD():
         self.ENVIRONMENTGRASSSTONE7SCALED = pygame.transform.scale(self.ENVIRONMENTGRASSSTONE7, (self.ENVIRONMENTGRASSSTONE7.get_width() // 2, self.ENVIRONMENTGRASSSTONE7.get_height() // 2))
         self.ENVIRONMENTGRASSSTONE8 = pygame.image.load("bin/assets/Environment/Grass/Stone/8.png")
         self.ENVIRONMENTGRASSSTONE8SCALED = pygame.transform.scale(self.ENVIRONMENTGRASSSTONE8, (self.ENVIRONMENTGRASSSTONE8.get_width() // 2, self.ENVIRONMENTGRASSSTONE8.get_height() // 2))
+
         self.ENVIRONMENTGRASSLOGS1 = pygame.image.load("bin/assets/Environment/Grass/Logs/1.png")
         self.ENVIRONMENTGRASSLOGS1SCALED = pygame.transform.scale(self.ENVIRONMENTGRASSLOGS1, (self.ENVIRONMENTGRASSLOGS1.get_width() // 2, self.ENVIRONMENTGRASSLOGS1.get_height() // 2))
         self.ENVIRONMENTGRASSLOGS2 = pygame.image.load("bin/assets/Environment/Grass/Logs/2.png")
@@ -110,6 +114,7 @@ class WORLD():
         self.ENVIRONMENTGRASSLOGS4SCALED = pygame.transform.scale(self.ENVIRONMENTGRASSLOGS4, (self.ENVIRONMENTGRASSLOGS4.get_width() // 2, self.ENVIRONMENTGRASSLOGS4.get_height() // 2))
         self.ENVIRONMENTGRASSLOGS5 = pygame.image.load("bin/assets/Environment/Grass/Logs/5.png")
         self.ENVIRONMENTGRASSLOGS5SCALED = pygame.transform.scale(self.ENVIRONMENTGRASSLOGS5, (self.ENVIRONMENTGRASSLOGS5.get_width() // 2, self.ENVIRONMENTGRASSLOGS5.get_height() // 2))
+
         self.ENVIRONMENTICE1 = pygame.image.load("bin/assets/Environment/Ice/1.png")
         self.ENVIRONMENTICE1SCALED = pygame.transform.scale(self.ENVIRONMENTICE1, (self.ENVIRONMENTICE1.get_width() // 2, self.ENVIRONMENTICE1.get_height() // 2))
         self.ENVIRONMENTICE2 = pygame.image.load("bin/assets/Environment/Ice/2.png")
@@ -130,12 +135,14 @@ class WORLD():
         self.ENVIRONMENTICE9SCALED = pygame.transform.scale(self.ENVIRONMENTICE9, (self.ENVIRONMENTICE9.get_width() // 2, self.ENVIRONMENTICE9.get_height() // 2))
         self.ENVIRONMENTICE10 = pygame.image.load("bin/assets/Environment/Ice/10.png")
         self.ENVIRONMENTICE10SCALED = pygame.transform.scale(self.ENVIRONMENTICE10, (self.ENVIRONMENTICE10.get_width() // 2, self.ENVIRONMENTICE10.get_height() // 2))
+
         self.ENVIRONMENTSTONE1 = pygame.image.load("bin/assets/Environment/Stone/1.png")
         self.ENVIRONMENTSTONE1SCALED = pygame.transform.scale(self.ENVIRONMENTSTONE1, (self.ENVIRONMENTSTONE1.get_width() // 2, self.ENVIRONMENTSTONE1.get_height() // 2))
         self.ENVIRONMENTSTONE2 = pygame.image.load("bin/assets/Environment/Stone/2.png")
         self.ENVIRONMENTSTONE2SCALED = pygame.transform.scale(self.ENVIRONMENTSTONE2, (self.ENVIRONMENTSTONE2.get_width() // 2, self.ENVIRONMENTSTONE2.get_height() // 2))
         self.ENVIRONMENTSTONE3 = pygame.image.load("bin/assets/Environment/Stone/3.png")
         self.ENVIRONMENTSTONE3SCALED = pygame.transform.scale(self.ENVIRONMENTSTONE3, (self.ENVIRONMENTSTONE3.get_width() // 2, self.ENVIRONMENTSTONE3.get_height() // 2))
+        
         self.ENVIRONMENTSTONEDRY1 = pygame.image.load("bin/assets/Environment/StoneDry/1.png")
         self.ENVIRONMENTSTONEDRY1SCALED = pygame.transform.scale(self.ENVIRONMENTSTONEDRY1, (self.ENVIRONMENTSTONEDRY1.get_width() // 2, self.ENVIRONMENTSTONEDRY1.get_height() // 2))
         self.ENVIRONMENTSTONEDRY2 = pygame.image.load("bin/assets/Environment/StoneDry/2.png")
@@ -144,6 +151,7 @@ class WORLD():
         self.ENVIRONMENTSTONEDRY3SCALED = pygame.transform.scale(self.ENVIRONMENTSTONEDRY3, (self.ENVIRONMENTSTONEDRY3.get_width() // 2, self.ENVIRONMENTSTONEDRY3.get_height() // 2))
         self.ENVIRONMENTSTONEDRY4 = pygame.image.load("bin/assets/Environment/StoneDry/4.png")
         self.ENVIRONMENTSTONEDRY4SCALED = pygame.transform.scale(self.ENVIRONMENTSTONEDRY4, (self.ENVIRONMENTSTONEDRY4.get_width() // 2, self.ENVIRONMENTSTONEDRY4.get_height() // 2))
+
         self.ENVIRONMENTSTONEWET1 = pygame.image.load("bin/assets/Environment/StoneWet/1.png")
         self.ENVIRONMENTSTONEWET1SCALED = pygame.transform.scale(self.ENVIRONMENTSTONEWET1, (self.ENVIRONMENTSTONEWET1.get_width() // 2, self.ENVIRONMENTSTONEWET1.get_height() // 2))
         self.ENVIRONMENTSTONEWET2 = pygame.image.load("bin/assets/Environment/StoneWet/2.png")
@@ -172,6 +180,7 @@ class WORLD():
         self.ENVIRONMENTSTONEWET13SCALED = pygame.transform.scale(self.ENVIRONMENTSTONEWET13, (self.ENVIRONMENTSTONEWET13.get_width() // 2, self.ENVIRONMENTSTONEWET13.get_height() // 2))
         self.ENVIRONMENTSTONEWET14 = pygame.image.load("bin/assets/Environment/StoneWet/14.png")
         self.ENVIRONMENTSTONEWET14SCALED = pygame.transform.scale(self.ENVIRONMENTSTONEWET14, (self.ENVIRONMENTSTONEWET14.get_width() // 2, self.ENVIRONMENTSTONEWET14.get_height() // 2))
+        
         self.ENVIRONMENTWATER1 = pygame.image.load("bin/assets/Environment/Water/1.png")
         self.ENVIRONMENTWATER1SCALED = pygame.transform.scale(self.ENVIRONMENTWATER1, (self.ENVIRONMENTWATER1.get_width() // 2, self.ENVIRONMENTWATER1.get_height() // 2))
         self.ENVIRONMENTWATER2 = pygame.image.load("bin/assets/Environment/Water/2.png")
@@ -210,11 +219,13 @@ class WORLD():
         self.ENVIRONMENTWATER18SCALED = pygame.transform.scale(self.ENVIRONMENTWATER18, (self.ENVIRONMENTWATER18.get_width() // 2, self.ENVIRONMENTWATER18.get_height() // 2))
         self.ENVIRONMENTWATER19 = pygame.image.load("bin/assets/Environment/Water/19.png")
         self.ENVIRONMENTWATER19SCALED = pygame.transform.scale(self.ENVIRONMENTWATER19, (self.ENVIRONMENTWATER19.get_width() // 2, self.ENVIRONMENTWATER19.get_height() // 2))
-    def RandomWorldGrass(self, GAME, PLAYERPOSITION):
-            self.maxRows = int (PLAYERPOSITION.y/128)*8
-            self.maxTiles = int (PLAYERPOSITION.x/128)*2
-            self.SURFACE = pygame.Surface((self.maxTiles * 128, self.maxRows * 128))
-            self.ScaledTileImageGrass = [
+
+    def RandomWorldGrass(self, GAMEINSTANCE):
+            self.SCREENMID = pygame.Vector2(GAMEINSTANCE.SCREEN.get_width() / 2, GAMEINSTANCE.SCREEN.get_height() / 2)
+            self.MAXROWS = int (self.SCREENMID.y/128)*8
+            self.MAXTILES = int (self.SCREENMID.x/128)*2
+            self.SURFACE = pygame.Surface((self.MAXTILES * 128, self.MAXROWS * 128))
+            self.SCALEDIMAGETILEGRASS = [
                 self.ENVIRONMENTGRASS1SCALED, self.ENVIRONMENTGRASS2SCALED,
                 self.ENVIRONMENTGRASS3SCALED, self.ENVIRONMENTGRASS4SCALED,
                 self.ENVIRONMENTGRASS5SCALED, self.ENVIRONMENTGRASS6SCALED,
@@ -224,11 +235,11 @@ class WORLD():
                 self.ENVIRONMENTGRASS13SCALED, self.ENVIRONMENTGRASS14SCALED,
                 self.ENVIRONMENTGRASS15SCALED, self.ENVIRONMENTGRASS16SCALED
             ]
-            for row in range(-2,self.maxRows):
-                for col in range(-1,self.maxTiles):
+            for row in range(-2,self.MAXROWS):
+                for col in range(-1,self.MAXTILES):
                     offset = 64 if row % 2 == 1 else 0
                     x = col * 128 + offset
                     y = row * 32
-                    randomScaledTileImageGrass = random.choice(self.ScaledTileImageGrass)
+                    randomScaledTileImageGrass = random.choice(self.SCALEDIMAGETILEGRASS)
                     self.SURFACE.blit(randomScaledTileImageGrass, (x,y))
             return self.SURFACE

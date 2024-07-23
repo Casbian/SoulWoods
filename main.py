@@ -1,190 +1,216 @@
-import engine
-TITLE = engine.TITLE()
-TITLE.TKINTERSTARTWINDOWLOGIC()
-GAME = engine.GAME()
-WORLD = engine.WORLD()
-PLAYER = engine.PLAYER()
-PLAYERPOSITION = engine.pygame.Vector2(GAME.SCREEN.get_width() / 2, GAME.SCREEN.get_height() / 2)
-PLAYERPNGCENTER = PLAYER.IDLERIGHT1SCALED.get_rect()
-HEALTHBARPOSITION = PLAYER.HEALTHBAR1SCALED.get_rect()
-STAMINABARPOSITION = PLAYER.STAMINABAR1SCALED.get_rect()
-MAGICABARPOSITION = PLAYER.MAGICABAR1SCALED.get_rect()
-PLAYERSTAMINA = 100
-FRAME = 1
-DIRECTION = 0
-ROLLING = False
-LASTROLLTIME = 0
-ATTACKING = False
-RUNNING = False
-LASTCLICKTIME = 0
-FIRSTCLICKLOCK = 0
-GAME.Start()
-GAME.TitleMenu()
-RANDOMWORLD = WORLD.RandomWorldGrass(GAME, PLAYERPOSITION)
-while GAME.RUNNING:
+####################################################################################################
+# MIT License
+# 
+# Copyright (c) 2024 Casbian
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+####################################################################################################
+#IMPORTS
+import engine       #Import of my Engine into the Programm
+####################################################################################################
+#START UP
+GAMEINSTANCE = engine.GAME()                                    #Creating an Instance of the CLASS "GAME" from Engine
+GAMEINSTANCE.Start()                                            #Starting the Instances Cycle
+TITLE = engine.TITLE(GAMEINSTANCE)                              #Creating an Instance of the CLASS "TITLE" from Engine
+del TITLE                                                       #Deleting Instance of the CLASS "TITLE" from Engine
+TITLEMENU = engine.TITLEMENU(GAMEINSTANCE)                      #Creating an Instance of the CLASS "TITLEMENU" from Engine
+del TITLEMENU                                                   #Deleting Instance of the CLASS "TITLEMENU" from Engine
+####################################################################################################
+#GAME LOOP REQUIRED VARIABLES START UP
+GAMEWORLD = engine.WORLD()                                      #Creating an Instance of the CLASS "WORLD" from Engine 
+CURRENTGAMEWORLDPNG = GAMEWORLD.RandomWorldGrass(GAMEINSTANCE)  #Creating random Location Variation on Assets to create PNG
+del GAMEWORLD                                                   #TEMP DELETE SINCE WORLD SWAP LOGIC IS NOT THERE YET
+PLAYER = engine.PLAYER()                                        #Creating an Instance of the CLASS "PLAYER" from Engine
+
+FRAMECOUNTERNROMAL = 1
+FRAMECOUNTERATTACK = 1
+FRAMECOUNTERROLL = 1
+PLAYERDIRECTION = 2 #"DIRECTION" VARIABLE // 1 left // 2 right
+ROLLDIRECTION = 1
+PLAYERRUNNING = None
+PLAYERATTACKING = None
+PLAYERATTACKINGCOMPLETE = None
+PLAYERROLLING = None
+PLAYERROLLINGCOMPLETE = None
+SCREENMIDDLE = engine.pygame.Vector2(GAMEINSTANCE.SCREEN.get_width() / 2, GAMEINSTANCE.SCREEN.get_height() / 2)
+PLAYINITIALPNGCENTER = PLAYER.IDLERIGHT1SCALED.get_rect()
+PLAYINITIALPNGCENTER.center = SCREENMIDDLE
+
+
+
+while GAMEINSTANCE.GAMERUNNING:
     for event in engine.pygame.event.get():
         if event.type == engine.pygame.QUIT: 
-            GAME.RUNNING = False
+            GAMEINSTANCE.GAMERUNNING = False
+            GAMEINSTANCE.Exit()     #Exit Point for Engine and Programm
         if event.type == engine.pygame.KEYUP:
-            if event.key == engine.pygame.K_a or event.key == engine.pygame.K_d or event.key == engine.pygame.K_w or event.key == engine.pygame.K_s:
-                RUNNING = False
-            if event.key == engine.pygame.K_SPACE:
-                ROLLING = False
-                LASTROLLTIME = CURRENTTIME  
-    GAME.TICK = GAME.CLOCK.tick(60) / 1000
-    CURRENTTIME = engine.pygame.time.get_ticks() / 1000
-    GAME.SCREEN.blit(RANDOMWORLD, (0,0))
-    MOUSE = engine.pygame.mouse.get_pressed()
-    if MOUSE[0] == True and (CURRENTTIME - FIRSTCLICKLOCK) > 3:
-        if not PLAYERSTAMINA < 25:
-            if PLAYERSTAMINA != 0:
-                ATTACKING = True
-                LASTCLICKTIME = CURRENTTIME
-    if MOUSE[0] == False and (CURRENTTIME - LASTCLICKTIME) > 1:
-        ATTACKING = False
-    KEYBOARD = engine.pygame.key.get_pressed()
-    if KEYBOARD[engine.pygame.K_s] and KEYBOARD[engine.pygame.K_a] and not KEYBOARD[engine.pygame.K_d]:
-        if ATTACKING != True:
-            RUNNING = True
-            PLAYERPOSITION.x -= (300 / engine.math.sqrt(2)) * GAME.TICK 
-            PLAYERPOSITION.y += (300 / engine.math.sqrt(2)) * GAME.TICK 
-    if KEYBOARD[engine.pygame.K_s] and KEYBOARD[engine.pygame.K_d] and not KEYBOARD[engine.pygame.K_a]:
-        if ATTACKING != True:
-            RUNNING = True
-            PLAYERPOSITION.x += (300 / engine.math.sqrt(2)) * GAME.TICK 
-            PLAYERPOSITION.y += (300 / engine.math.sqrt(2)) * GAME.TICK 
-    if KEYBOARD[engine.pygame.K_w] and KEYBOARD[engine.pygame.K_a] and not KEYBOARD[engine.pygame.K_d]:
-        if ATTACKING != True:
-            RUNNING = True
-            PLAYERPOSITION.x -= (300 / engine.math.sqrt(2)) * GAME.TICK 
-            PLAYERPOSITION.y -= (300 / engine.math.sqrt(2)) * GAME.TICK 
-    if KEYBOARD[engine.pygame.K_w] and KEYBOARD[engine.pygame.K_d] and not KEYBOARD[engine.pygame.K_a]:
-        if ATTACKING != True:
-            RUNNING = True
-            PLAYERPOSITION.x += (300 / engine.math.sqrt(2)) * GAME.TICK 
-            PLAYERPOSITION.y -= (300 / engine.math.sqrt(2)) * GAME.TICK 
-    if KEYBOARD[engine.pygame.K_w] and not KEYBOARD[engine.pygame.K_a] and not KEYBOARD[engine.pygame.K_s] and not KEYBOARD[engine.pygame.K_d]:
-        if ATTACKING != True:
-            RUNNING = True
-            PLAYERPOSITION.y -= 300 * GAME.TICK
-    if KEYBOARD[engine.pygame.K_s] and not KEYBOARD[engine.pygame.K_a] and not KEYBOARD[engine.pygame.K_w] and not KEYBOARD[engine.pygame.K_d]:
-        if ATTACKING != True:
-            RUNNING = True
-            PLAYERPOSITION.y += 300 * GAME.TICK
-    if KEYBOARD[engine.pygame.K_a] and not KEYBOARD[engine.pygame.K_w] and not KEYBOARD[engine.pygame.K_s] and not KEYBOARD[engine.pygame.K_d]:
-        if ATTACKING != True:
-            DIRECTION = 0
-            RUNNING = True
-            PLAYERPOSITION.x -= 300 * GAME.TICK
-    if KEYBOARD[engine.pygame.K_d] and not KEYBOARD[engine.pygame.K_a] and not KEYBOARD[engine.pygame.K_s] and not KEYBOARD[engine.pygame.K_w]:
-        if ATTACKING != True:
-            DIRECTION = 1
-            RUNNING = True
-            PLAYERPOSITION.x += 300 * GAME.TICK
-    if KEYBOARD[engine.pygame.K_SPACE] and ROLLING != True and (CURRENTTIME - LASTROLLTIME) > 1:
-        if not PLAYERSTAMINA < 25:
-            if PLAYERSTAMINA != 0:
-                if ATTACKING != True:
-                    ROLLING = True
-    PLAYERPNGCENTER.center = PLAYERPOSITION
-    HEALTHBARPOSITION.center = PLAYERPOSITION
-    STAMINABARPOSITION.center = PLAYERPOSITION
-    MAGICABARPOSITION.center = PLAYERPOSITION
-    HEALTHBARPOSITION.y = HEALTHBARPOSITION.y - 76
-    STAMINABARPOSITION.y = STAMINABARPOSITION.y - 64
-    MAGICABARPOSITION.y = MAGICABARPOSITION.y - 52
-    if ATTACKING == True:
-        PLAYERSTAMINA = PLAYERSTAMINA - 25 * GAME.TICK
-    if ROLLING == True:
-        PLAYERSTAMINA = PLAYERSTAMINA - 75 * GAME.TICK
-    if PLAYERSTAMINA >= 100:
-        PLAYERSTAMINA = 100
-    elif PLAYERSTAMINA <5:
-        PLAYERSTAMINA = 5
-        ATTACKING = False
-        ROLLING = False
-    else:
-        if ATTACKING != True:
-            if ROLLING != True:
-                PLAYERSTAMINA = PLAYERSTAMINA + 15 * GAME.TICK          
-    GAME.SCREEN.blit(PLAYER.HEALTHBAR1SCALED, HEALTHBARPOSITION)
-    GAME.SCREEN.blit(PLAYER.MAGICABAR1SCALED, MAGICABARPOSITION)
-    match DIRECTION:
-        case 0:
-            FRAME = FRAME+1
-            if FRAME > 60:
-                FRAME = 1 
-            if ROLLING != True: 
-                if ATTACKING != True:
-                    if RUNNING != True:
-                        FRAMEPNG = getattr(PLAYER, "IDLELEFT{}SCALED".format(FRAME))
-                        GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)
-                    else:
-                        FRAMEPNG = getattr(PLAYER, "RUNLEFT{}SCALED".format(FRAME))
-                        GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)
+            if event.key == engine.pygame.K_w or event.key == engine.pygame.K_a or event.key == engine.pygame.K_s or event.key == engine.pygame.K_d:
+                PLAYERRUNNING = False
+            
+
+    GAMEINSTANCE.TICK = GAMEINSTANCE.CLOCK.tick(60) / 1000
+    FRAMECOUNTERNROMAL += 1
+    if FRAMECOUNTERNROMAL > 60:
+        FRAMECOUNTERNROMAL = 1
+    GAMEINSTANCE.SCREEN.blit(CURRENTGAMEWORLDPNG, (0,0))
+    
+    USERMOUSE = engine.pygame.mouse.get_pressed()
+    if USERMOUSE[0] and not PLAYERROLLING:
+        PLAYERATTACKING = True
+    if not USERMOUSE[0] and PLAYERATTACKINGCOMPLETE:
+        PLAYERATTACKING = False
+    USERKEYBOARD = engine.pygame.key.get_pressed()
+    if USERKEYBOARD[engine.pygame.K_w] and USERKEYBOARD[engine.pygame.K_a] and USERKEYBOARD[engine.pygame.K_d] and not PLAYERATTACKING and not PLAYERROLLING:
+        PLAYERRUNNING = True
+        ROLLDIRECTION = 3
+        PLAYINITIALPNGCENTER.y -= 300 * GAMEINSTANCE.TICK
+    if USERKEYBOARD[engine.pygame.K_s] and USERKEYBOARD[engine.pygame.K_a] and USERKEYBOARD[engine.pygame.K_d] and not PLAYERATTACKING and not PLAYERROLLING:
+        PLAYERRUNNING = True
+        ROLLDIRECTION = 4
+        PLAYINITIALPNGCENTER.y += 300 * GAMEINSTANCE.TICK    
+    if USERKEYBOARD[engine.pygame.K_w] and USERKEYBOARD[engine.pygame.K_a] and not USERKEYBOARD[engine.pygame.K_d] and not PLAYERATTACKING and not PLAYERROLLING:
+        PLAYERRUNNING = True
+        PLAYERDIRECTION = 1
+        ROLLDIRECTION = 7
+        PLAYINITIALPNGCENTER.x -= (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK
+        PLAYINITIALPNGCENTER.y -= (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK
+    if USERKEYBOARD[engine.pygame.K_w] and USERKEYBOARD[engine.pygame.K_d] and not USERKEYBOARD[engine.pygame.K_a] and not PLAYERATTACKING and not PLAYERROLLING:
+        PLAYERRUNNING = True
+        PLAYERDIRECTION = 2
+        ROLLDIRECTION = 5
+        PLAYINITIALPNGCENTER.x += (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK
+        PLAYINITIALPNGCENTER.y -= (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK 
+    if USERKEYBOARD[engine.pygame.K_s] and USERKEYBOARD[engine.pygame.K_a] and not USERKEYBOARD[engine.pygame.K_d] and not PLAYERATTACKING and not PLAYERROLLING:
+        PLAYERRUNNING = True
+        PLAYERDIRECTION = 1
+        ROLLDIRECTION = 6
+        PLAYINITIALPNGCENTER.x -= (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK
+        PLAYINITIALPNGCENTER.y += (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK 
+    if USERKEYBOARD[engine.pygame.K_s] and USERKEYBOARD[engine.pygame.K_d] and not USERKEYBOARD[engine.pygame.K_a] and not PLAYERATTACKING and not PLAYERROLLING:
+        PLAYERRUNNING = True
+        PLAYERDIRECTION = 2
+        ROLLDIRECTION = 8
+        PLAYINITIALPNGCENTER.x += (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK
+        PLAYINITIALPNGCENTER.y += (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK              
+    if USERKEYBOARD[engine.pygame.K_w] and not USERKEYBOARD[engine.pygame.K_a] and not USERKEYBOARD[engine.pygame.K_d] and not PLAYERATTACKING and not PLAYERROLLING:
+        PLAYERRUNNING = True
+        ROLLDIRECTION = 3
+        PLAYINITIALPNGCENTER.y -= 300 * GAMEINSTANCE.TICK           
+    if USERKEYBOARD[engine.pygame.K_a] and not USERKEYBOARD[engine.pygame.K_w] and not USERKEYBOARD[engine.pygame.K_s] and not PLAYERATTACKING and not PLAYERROLLING:
+        PLAYERRUNNING = True
+        PLAYERDIRECTION = 1
+        ROLLDIRECTION = 1
+        PLAYINITIALPNGCENTER.x -= 300 * GAMEINSTANCE.TICK
+    if USERKEYBOARD[engine.pygame.K_s] and not USERKEYBOARD[engine.pygame.K_a] and not USERKEYBOARD[engine.pygame.K_d] and not PLAYERATTACKING and not PLAYERROLLING:
+        PLAYERRUNNING = True
+        ROLLDIRECTION = 4
+        PLAYINITIALPNGCENTER.y += 300 * GAMEINSTANCE.TICK
+    if USERKEYBOARD[engine.pygame.K_d] and not USERKEYBOARD[engine.pygame.K_w] and not USERKEYBOARD[engine.pygame.K_s] and not PLAYERATTACKING and not PLAYERROLLING:
+        PLAYERRUNNING = True
+        PLAYERDIRECTION = 2
+        ROLLDIRECTION = 2
+        PLAYINITIALPNGCENTER.x += 300 * GAMEINSTANCE.TICK
+    if USERKEYBOARD[engine.pygame.K_SPACE] and USERKEYBOARD[engine.pygame.K_w] and not USERKEYBOARD[engine.pygame.K_s] and not PLAYERATTACKING:
+        PLAYERROLLING = True                  
+    if USERKEYBOARD[engine.pygame.K_SPACE] and USERKEYBOARD[engine.pygame.K_s] and not USERKEYBOARD[engine.pygame.K_w] and not PLAYERATTACKING:
+        PLAYERROLLING = True
+    if USERKEYBOARD[engine.pygame.K_SPACE] and not USERKEYBOARD[engine.pygame.K_w] and not USERKEYBOARD[engine.pygame.K_s] and not PLAYERATTACKING:
+        PLAYERROLLING = True
+    if not USERKEYBOARD[engine.pygame.K_SPACE] and PLAYERROLLINGCOMPLETE:
+        PLAYERROLLING = False
+        
+    if PLAYERDIRECTION == 1:
+        if not PLAYERROLLING:
+            if not PLAYERATTACKING:
+                if not PLAYERRUNNING:
+                    CURRENTIDLEPNG = getattr(PLAYER, "IDLELEFT{}SCALED".format(FRAMECOUNTERNROMAL))
+                    GAMEINSTANCE.SCREEN.blit(CURRENTIDLEPNG, PLAYINITIALPNGCENTER)
                 else:
-                    FRAMEPNG = getattr(PLAYER, "ATTACKLEFT{}SCALED".format(FRAME))
-                    GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)
+                    CURRENTRUNNINGPNG = getattr(PLAYER, "RUNLEFT{}SCALED".format(FRAMECOUNTERNROMAL))
+                    GAMEINSTANCE.SCREEN.blit(CURRENTRUNNINGPNG, PLAYINITIALPNGCENTER)
             else:
-                FRAMEPNG = getattr(PLAYER, "ROLLLEFT{}SCALED".format(FRAME))
-                GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)  
-        case 1:
-            FRAME = FRAME+1
-            if FRAME > 60:
-                FRAME = 1
-            if ROLLING != True:
-                if ATTACKING != True:
-                    if RUNNING != True:
-                        FRAMEPNG = getattr(PLAYER, "IDLERIGHT{}SCALED".format(FRAME))
-                        GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)
-                    else:
-                        FRAMEPNG = getattr(PLAYER, "RUNRIGHT{}SCALED".format(FRAME))
-                        GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)
+                PLAYERATTACKINGCOMPLETE = False
+                FRAMECOUNTERATTACK += 2
+                if FRAMECOUNTERATTACK > 60:
+                    PLAYERATTACKINGCOMPLETE = True
+                    FRAMECOUNTERATTACK = 1 
+                CURRENTATTACKPNG = getattr(PLAYER, "ATTACKLEFT{}SCALED".format(FRAMECOUNTERATTACK))
+                GAMEINSTANCE.SCREEN.blit(CURRENTATTACKPNG, PLAYINITIALPNGCENTER)
+        else:
+            PLAYERROLLINGCOMPLETE = False
+            FRAMECOUNTERROLL += 2
+            if FRAMECOUNTERROLL > 60:
+                PLAYERROLLINGCOMPLETE = True
+                FRAMECOUNTERROLL = 1 
+            match ROLLDIRECTION:
+                case 1:
+                    PLAYINITIALPNGCENTER.x -= 300 * GAMEINSTANCE.TICK
+                case 3:
+                    PLAYINITIALPNGCENTER.y -= 300 * GAMEINSTANCE.TICK
+                case 4:
+                    PLAYINITIALPNGCENTER.y += 300 * GAMEINSTANCE.TICK
+                case 6:
+                    PLAYINITIALPNGCENTER.x -= (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK
+                    PLAYINITIALPNGCENTER.y += (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK
+                case 7:
+                    PLAYINITIALPNGCENTER.x -= (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK
+                    PLAYINITIALPNGCENTER.y -= (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK 
+            CURRENTROLLPNG = getattr(PLAYER, "ROLLLEFT{}SCALED".format(FRAMECOUNTERROLL))
+            GAMEINSTANCE.SCREEN.blit(CURRENTROLLPNG, PLAYINITIALPNGCENTER)                    
+    if PLAYERDIRECTION == 2:
+        if not PLAYERROLLING:
+            if not PLAYERATTACKING:
+                if not PLAYERRUNNING:
+                    CURRENTIDLEPNG = getattr(PLAYER, "IDLERIGHT{}SCALED".format(FRAMECOUNTERNROMAL))
+                    GAMEINSTANCE.SCREEN.blit(CURRENTIDLEPNG, PLAYINITIALPNGCENTER)
                 else:
-                    FRAMEPNG = getattr(PLAYER, "ATTACKRIGHT{}SCALED".format(FRAME))
-                    GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)
+                    CURRENTRUNNINGPNG = getattr(PLAYER, "RUNRIGHT{}SCALED".format(FRAMECOUNTERNROMAL))
+                    GAMEINSTANCE.SCREEN.blit(CURRENTRUNNINGPNG, PLAYINITIALPNGCENTER)
             else:
-                FRAMEPNG = getattr(PLAYER, "ROLLRIGHT{}SCALED".format(FRAME))
-                GAME.SCREEN.blit(FRAMEPNG, PLAYERPNGCENTER)  
-    if PLAYERSTAMINA == 0:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR20SCALED, STAMINABARPOSITION)
-    if PLAYERSTAMINA >=5:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR19SCALED, STAMINABARPOSITION)  
-    if PLAYERSTAMINA >=10:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR18SCALED, STAMINABARPOSITION) 
-    if PLAYERSTAMINA >=15:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR17SCALED, STAMINABARPOSITION)
-    if PLAYERSTAMINA >=20:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR16SCALED, STAMINABARPOSITION)
-    if PLAYERSTAMINA >=25:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR15SCALED, STAMINABARPOSITION)
-    if PLAYERSTAMINA >=30:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR14SCALED, STAMINABARPOSITION)
-    if PLAYERSTAMINA >=35:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR13SCALED, STAMINABARPOSITION)
-    if PLAYERSTAMINA >=40:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR12SCALED, STAMINABARPOSITION)
-    if PLAYERSTAMINA >=45:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR11SCALED, STAMINABARPOSITION)  
-    if PLAYERSTAMINA >=50:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR10SCALED, STAMINABARPOSITION) 
-    if PLAYERSTAMINA >=55:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR9SCALED, STAMINABARPOSITION)
-    if PLAYERSTAMINA >=60:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR8SCALED, STAMINABARPOSITION)
-    if PLAYERSTAMINA >=65:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR7SCALED, STAMINABARPOSITION)
-    if PLAYERSTAMINA >=70:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR6SCALED, STAMINABARPOSITION)
-    if PLAYERSTAMINA >=75:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR5SCALED, STAMINABARPOSITION)
-    if PLAYERSTAMINA >=80:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR4SCALED, STAMINABARPOSITION)
-    if PLAYERSTAMINA >=85:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR3SCALED, STAMINABARPOSITION)
-    if PLAYERSTAMINA >=90:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR2SCALED, STAMINABARPOSITION)  
-    if PLAYERSTAMINA >=95:
-        GAME.SCREEN.blit(PLAYER.STAMINABAR1SCALED, STAMINABARPOSITION) 
+                PLAYERATTACKINGCOMPLETE = False
+                FRAMECOUNTERATTACK += 2
+                if FRAMECOUNTERATTACK > 60:
+                    PLAYERATTACKINGCOMPLETE = True
+                    FRAMECOUNTERATTACK = 1 
+                CURRENTATTACKPNG = getattr(PLAYER, "ATTACKRIGHT{}SCALED".format(FRAMECOUNTERATTACK))
+                GAMEINSTANCE.SCREEN.blit(CURRENTATTACKPNG, PLAYINITIALPNGCENTER)
+        else:
+            PLAYERROLLINGCOMPLETE = False
+            FRAMECOUNTERROLL += 2
+            if FRAMECOUNTERROLL > 60:
+                PLAYERROLLINGCOMPLETE = True
+                FRAMECOUNTERROLL = 1 
+            match ROLLDIRECTION:
+                case 2:
+                    PLAYINITIALPNGCENTER.x += 300 * GAMEINSTANCE.TICK
+                case 3:
+                    PLAYINITIALPNGCENTER.y -= 300 * GAMEINSTANCE.TICK
+                case 4:
+                    PLAYINITIALPNGCENTER.y += 300 * GAMEINSTANCE.TICK
+                case 5:
+                    PLAYINITIALPNGCENTER.x += (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK
+                    PLAYINITIALPNGCENTER.y -= (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK
+                case 8:
+                    PLAYINITIALPNGCENTER.x += (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK
+                    PLAYINITIALPNGCENTER.y += (300 / engine.math.sqrt(2)) * GAMEINSTANCE.TICK    
+            CURRENTROLLPNG = getattr(PLAYER, "ROLLRIGHT{}SCALED".format(FRAMECOUNTERROLL))
+            GAMEINSTANCE.SCREEN.blit(CURRENTROLLPNG, PLAYINITIALPNGCENTER)
+            
+
     engine.pygame.display.flip()
-GAME.Exit()
