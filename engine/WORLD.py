@@ -235,6 +235,15 @@ class WORLD():
                 self.ENVIRONMENTGRASS13SCALED, self.ENVIRONMENTGRASS14SCALED,
                 self.ENVIRONMENTGRASS15SCALED, self.ENVIRONMENTGRASS16SCALED
             ]
+            self.SCALEDIMAGETILEMISC = [
+                self.ENVIRONMENTGRASSLOGS1SCALED, self.ENVIRONMENTGRASSLOGS2SCALED,
+                self.ENVIRONMENTGRASSLOGS3SCALED, self.ENVIRONMENTGRASSLOGS4SCALED,
+                self.ENVIRONMENTGRASSLOGS5SCALED, self.ENVIRONMENTGRASSSTONE1SCALED,
+                self.ENVIRONMENTGRASSSTONE2SCALED, self.ENVIRONMENTGRASSSTONE3SCALED,
+                self.ENVIRONMENTGRASSSTONE4SCALED, self.ENVIRONMENTGRASSSTONE5SCALED,
+                self.ENVIRONMENTGRASSSTONE6SCALED, self.ENVIRONMENTGRASSSTONE7SCALED,
+                self.ENVIRONMENTGRASSSTONE8SCALED
+            ]
             for row in range(-2,self.MAXROWS):
                 for col in range(-1,self.MAXTILES):
                     offset = 64 if row % 2 == 1 else 0
@@ -242,4 +251,9 @@ class WORLD():
                     y = row * 32
                     randomScaledTileImageGrass = random.choice(self.SCALEDIMAGETILEGRASS)
                     self.SURFACE.blit(randomScaledTileImageGrass, (x,y))
+            for Misc in range(1,4):
+                x = int (random.uniform(1,1000))
+                y = int (random.uniform(1,1000))
+                randomScaledTileImageMisc = random.choice(self.SCALEDIMAGETILEMISC)
+                self.SURFACE.blit(randomScaledTileImageMisc, (x,y))
             return self.SURFACE
