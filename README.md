@@ -2,7 +2,7 @@
 
 ## Install
 - Extract your Release .zip
-- run main.exe
+- run SoulWoods.exe
 - enjoy
 
 ### Welcome to the SoulWoods
