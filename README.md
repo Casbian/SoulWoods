@@ -11,5 +11,4 @@ Deep within the dense woods, countless monsters lurk, seeking souls.<br>
 Your mission: Defeat them all before the world crumbles.<br>
 Get ready for the challenge of your life!<br>
 
-### Screenshots
-![Screen1](https://i.ibb.co/ccS492g/image.png)
+![Screen2](https://i.ibb.co/zZQYQV9/8.png)
