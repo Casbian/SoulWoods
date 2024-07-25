@@ -1,52 +1,107 @@
+<!--
+####################################################################################################
+# MIT License
+# 
+# Copyright (c) 2024 Casbian
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+####################################################################################################
+-->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SoulWoods</title>
-    <style>
-        body {
-            background-color: #2b2b2b;
-            color: #fff;
-            font-family: 'Press Start 2P', cursive;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1 {
-            font-size: 36px;
-            margin: 20px 0;
-        }
-        p {
-            font-size: 18px;
-            line-height: 1.5;
-        }
-        .title-img {
-            width: 100%;
-            max-width: 600px;
-        }
-        .background {
-            background: url('https://i.imgur.com/x3AG2fK.png') no-repeat center center;
-            background-size: cover;
-            padding: 50px 0;
-        }
-    </style>
+<title>SoulWoods</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Consolas", sans-serif;}
+body, html {
+  height: 100%;
+  color: #ffffff;
+  line-height: 1.8;
+  background-color: #000000;
+}
+.bgimg-1, .bgimg-2, .bgimg-3 {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bgimg-1 {
+  background-image: url('https://i.ibb.co/qsWDzr1/Soul-Woods-Title-OLD.png');
+  min-height: 85%;
+}
+.bgimg-2 {
+  background-image: url("https://i.ibb.co/rbyP3nh/me.jpg");
+  min-height: 400px;
+}
+.w3-wide {letter-spacing: 10px;}
+.w3-hover-opacity {cursor: pointer;}
+@media only screen and (max-device-width: 1600px) {
+  .bgimg-1, .bgimg-2, .bgimg-3 {
+    background-attachment: scroll;
+    min-height: 400px;
+  }
+}
+</style>
 </head>
 <body>
-    <div class="background">
-        <div class="container">
-            <img src="https://i.ibb.co/z8WLrfY/Soul-Woods-Title.png" alt="SoulWoods Title" class="title-img">
-            <h1>Welcome to the SoulWoods</h1>
-            <p>Prepare yourself for an epic adventure, brave hero.<br>
-            Deep within the dense woods, countless monsters lurk, seeking souls.<br>
-            Your mission: Defeat them all before the world crumbles.<br>
-            Get ready for the challenge of your life!</p>
-        </div>
-    </div>
+<div class="bgimg-1 w3-display-container" id="home"></div>
+<div class="w3-content w3-container w3-padding-64" id="about">
+  <h3 class="w3-center">WELCOME</h3>
+  <p class="w3-center"><em>Story</em></p>
+  <p>Prepare yourself for an epic adventure, brave hero.
+    Deep within the dense woods, countless monsters lurk, seeking souls.
+    Our mission is to kill them all before the world crumbles.
+    Get ready for the challenge of your life!<br>
+    As you step into the shadowy world of Eclipsed Realms, your heart pounds with a mixture of fear and excitement.
+    The once serene forest now stands twisted and tainted, with the trees gnarled into grotesque shapes.
+    A chilling mist hangs low, obscuring the path ahead and muffling the whispers of hidden dangers.
+    Sharpen your blade, gather your courage, and venture forth into the darkness.
+    The Eclipsed Realms await, and only the bravest will emerge victorious.<br>
+    The fate of the world rests in your hands, hero.<br>
+    Will you conquer the darkness or be consumed by it?</p>
+<div class="w3-center w3-black w3-padding-64">
+    <a href="https://github.com/Casbian/SoulWoods/releases" class="w3-button w3-teal"><i class="fa fa-arrow-down w3-margin-right"></i>Latest Release</a>
+</div>
+<p class="w3-large w3-center w3-padding-16">CURRENT CODE</p>
+<p class="w3-wide"><i class="fa fa-laptop"></i>Python</p>
+<div class="w3-light-grey">
+<div class="w3-container w3-padding-small w3-blue w3-center" style="width:100%">100%</div>
+</div>
+<br><br><br><br><br><br><br><br>
+<div class="w3-row">
+<div class="w3-col m6 w3-center w3-padding-large">
+<p><b><i class="fa fa-user w3-margin-right"></i>CASBIAN<br><a href="">https://github.com/Casbian</a></b></p>
+<img src="https://i.ibb.co/rbyP3nh/me.jpg" class="w3-round w3-image" alt="Photo of Me" width="500" height="333">
+</div>
+<div class="w3-col m6 w3-hide-small w3-padding-large">
+<p>Welcome to my little Indie Games Project.<br>
+I started coding in June 2024 and this Project got started to expand my Skills.<br>
+I hope to one day create a Dark-Souls Vibe Game in old 8 Bit Pixel Graphics.<br>
+I would be gratly humbled if you took a look at my work and maybe gave Feedback.</p>
+</div></div>
+<footer class="w3-center w3-black w3-padding-64 w3-opacity-min">
+  <a href="#home" class="w3-button w3-red"><i class="fa fa-arrow-up w3-margin-right"></i>back</a>
+</footer>
 </body>
 </html>
