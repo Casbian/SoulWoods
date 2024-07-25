@@ -1,4 +1,4 @@
-# ![SoulWoods](https://i.ibb.co/87xCXnW/Soul-Woods-Title-NEW.jpg)
+# ![SoulWoods](https://i.ibb.co/4VZfjZK/Soul-Woods-Social-Card.png)
 
 ## Install
 - Extract your Release .zip
@@ -11,4 +11,4 @@ Deep within the dense woods, countless monsters lurk, seeking souls.<br>
 Your mission: Defeat them all before the world crumbles.<br>
 Get ready for the challenge of your life!<br>
 
-![Screen2](https://i.ibb.co/zZQYQV9/8.png)
+![Screen1](https://i.ibb.co/zZQYQV9/8.png)
